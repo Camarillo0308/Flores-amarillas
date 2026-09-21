@@ -1,289 +1,733 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ramo de Flores Amarillas 🌼</title>
+
+<title>Para ti 🌼</title>
 
 <style>
-    * {
-        box-sizing: border-box;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #fffde7, #fff3b0, #ffe082);
+}
+
+/* =========================
+   PANTALLA INICIAL
+========================= */
+
+.inicio {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background:
+        radial-gradient(circle at center, #fffde7 0%, #ffe082 100%);
+
+    transition: opacity 1.5s ease;
+}
+
+.contenido-inicio {
+    padding: 30px;
+    animation: aparecer 2s ease;
+}
+
+.contenido-inicio .flor-icono {
+    font-size: 80px;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+.contenido-inicio h1 {
+    color: #8d6e00;
+    font-size: 32px;
+    margin: 15px 0 10px;
+}
+
+.contenido-inicio p {
+    color: #6d5710;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.boton {
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+
+    background: linear-gradient(135deg, #ffd600, #ffb300);
+    color: white;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(180, 130, 0, .25);
+
+    transition: transform .3s, box-shadow .3s;
+}
+
+.boton:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 25px rgba(180, 130, 0, .35);
+}
+
+/* =========================
+   ESCENA
+========================= */
+
+.escena {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.escena.activa {
+    opacity: 1;
+}
+
+/* =========================
+   ESTRELLAS / BRILLOS
+========================= */
+
+.brillo {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+
+    background: white;
+    border-radius: 50%;
+
+    box-shadow: 0 0 12px white;
+
+    animation: brillo 2.5s infinite ease-in-out;
+}
+
+.b1 { left: 10%; top: 15%; }
+.b2 { left: 80%; top: 20%; animation-delay: .5s; }
+.b3 { left: 20%; top: 70%; animation-delay: 1s; }
+.b4 { left: 90%; top: 65%; animation-delay: 1.5s; }
+.b5 { left: 50%; top: 10%; animation-delay: .8s; }
+.b6 { left: 65%; top: 75%; animation-delay: 1.2s; }
+
+/* =========================
+   RAMO
+========================= */
+
+.ramo {
+    position: relative;
+
+    width: 360px;
+    height: 560px;
+
+    transform: translateY(40px);
+
+    animation: aparecerRamo 2s ease forwards;
+}
+
+/* =========================
+   TALLOS
+========================= */
+
+.tallo {
+    position: absolute;
+
+    bottom: 95px;
+    left: 50%;
+
+    width: 8px;
+    height: 350px;
+
+    background: linear-gradient(
+        to right,
+        #236b2b,
+        #4caf50,
+        #236b2b
+    );
+
+    border-radius: 10px;
+
+    transform-origin: bottom;
+}
+
+.t1 { transform: rotate(-32deg); }
+.t2 { transform: rotate(-22deg); }
+.t3 { transform: rotate(-11deg); }
+.t4 { transform: rotate(0deg); }
+.t5 { transform: rotate(12deg); }
+.t6 { transform: rotate(24deg); }
+.t7 { transform: rotate(34deg); }
+
+/* =========================
+   FLORES
+========================= */
+
+.flor {
+    position: absolute;
+
+    width: 125px;
+    height: 125px;
+
+    transform: scale(0);
+
+    animation: aparecerFlor 1.5s ease forwards,
+               balanceo 4s ease-in-out infinite;
+
+    transform-origin: bottom center;
+}
+
+.flor1 {
+    left: 0;
+    top: 45px;
+    animation-delay: .5s, 2s;
+}
+
+.flor2 {
+    left: 65px;
+    top: 0;
+    animation-delay: .9s, 2.2s;
+}
+
+.flor3 {
+    left: 130px;
+    top: 55px;
+    animation-delay: 1.3s, 2.4s;
+}
+
+.flor4 {
+    left: 190px;
+    top: 5px;
+    animation-delay: 1.7s, 2.6s;
+}
+
+.flor5 {
+    left: 220px;
+    top: 75px;
+    animation-delay: 2.1s, 2.8s;
+}
+
+.flor6 {
+    left: 80px;
+    top: 110px;
+    animation-delay: 2.5s, 3s;
+}
+
+.flor7 {
+    left: 150px;
+    top: 130px;
+    animation-delay: 2.9s, 3.2s;
+}
+
+/* =========================
+   PÉTALOS
+========================= */
+
+.petalo {
+    position: absolute;
+
+    width: 38px;
+    height: 62px;
+
+    left: 44px;
+    top: 0;
+
+    background: linear-gradient(
+        to bottom,
+        #fff176,
+        #ffd600
+    );
+
+    border-radius: 50%;
+
+    transform-origin: 19px 62px;
+
+    box-shadow:
+        0 2px 5px rgba(0,0,0,.12);
+}
+
+.p1 { transform: rotate(0deg); }
+.p2 { transform: rotate(45deg); }
+.p3 { transform: rotate(90deg); }
+.p4 { transform: rotate(135deg); }
+.p5 { transform: rotate(180deg); }
+.p6 { transform: rotate(225deg); }
+.p7 { transform: rotate(270deg); }
+.p8 { transform: rotate(315deg); }
+
+/* =========================
+   CENTRO
+========================= */
+
+.centro {
+    position: absolute;
+
+    width: 48px;
+    height: 48px;
+
+    left: 39px;
+    top: 39px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #fff176 0%,
+            #fbc02d 45%,
+            #e6a900 100%
+        );
+
+    z-index: 5;
+
+    box-shadow:
+        inset 0 3px 5px rgba(0,0,0,.2),
+        0 2px 5px rgba(0,0,0,.15);
+}
+
+/* =========================
+   HOJAS
+========================= */
+
+.hoja {
+    position: absolute;
+
+    width: 85px;
+    height: 35px;
+
+    background: linear-gradient(
+        135deg,
+        #2e7d32,
+        #66bb6a
+    );
+
+    border-radius: 100% 0 100% 0;
+}
+
+.h1 {
+    bottom: 280px;
+    left: 15px;
+    transform: rotate(-35deg);
+}
+
+.h2 {
+    bottom: 240px;
+    right: 5px;
+    transform: rotate(145deg);
+}
+
+.h3 {
+    bottom: 190px;
+    left: 35px;
+    transform: rotate(-20deg);
+}
+
+.h4 {
+    bottom: 155px;
+    right: 25px;
+    transform: rotate(155deg);
+}
+
+/* =========================
+   ENVOLTURA
+========================= */
+
+.envoltura {
+    position: absolute;
+
+    bottom: 25px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 275px;
+    height: 190px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffde7,
+            #fff59d
+        );
+
+    clip-path: polygon(
+        10% 0,
+        90% 0,
+        100% 100%,
+        0 100%
+    );
+
+    z-index: 10;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.15);
+}
+
+.papel {
+    position: absolute;
+
+    bottom: 35px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 240px;
+    height: 150px;
+
+    background: rgba(255,255,255,.65);
+
+    clip-path: polygon(
+        15% 0,
+        85% 0,
+        100% 100%,
+        0 100%
+    );
+
+    z-index: 11;
+}
+
+/* =========================
+   MOÑO
+========================= */
+
+.mono {
+    position: absolute;
+
+    bottom: 110px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 110px;
+    height: 65px;
+
+    z-index: 20;
+}
+
+.lazo {
+    position: absolute;
+
+    width: 58px;
+    height: 45px;
+
+    background: #e91e63;
+
+    border-radius: 50%;
+
+    top: 5px;
+}
+
+.lazo.izq {
+    left: 0;
+    transform: rotate(25deg);
+}
+
+.lazo.der {
+    right: 0;
+    transform: rotate(-25deg);
+}
+
+.nudo {
+    position: absolute;
+
+    left: 42px;
+    top: 14px;
+
+    width: 28px;
+    height: 28px;
+
+    background: #c2185b;
+
+    border-radius: 50%;
+
+    z-index: 5;
+}
+
+/* =========================
+   MENSAJE
+========================= */
+
+.mensaje {
+    position: absolute;
+
+    bottom: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 90%;
+
+    text-align: center;
+
+    color: #795548;
+
+    opacity: 0;
+
+    animation: aparecerMensaje 2s ease 4s forwards;
+}
+
+.mensaje h2 {
+    margin: 0;
+
+    font-size: 28px;
+
+    color: #8d6e00;
+}
+
+.mensaje p {
+    margin-top: 8px;
+
+    font-size: 17px;
+
+    color: #6d5710;
+}
+
+/* =========================
+   PÉTALOS CAYENDO
+========================= */
+
+.petalo-caida {
+    position: fixed;
+
+    top: -20px;
+
+    width: 12px;
+    height: 18px;
+
+    background: #ffd600;
+
+    border-radius: 100% 0 100% 0;
+
+    animation: caer linear forwards;
+
+    z-index: 50;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        background: linear-gradient(to bottom, #fff8dc, #ffe082);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes aparecerRamo {
+    from {
+        opacity: 0;
+        transform: translateY(100px) scale(.8);
     }
 
-    .contenedor {
-        position: relative;
-        width: 600px;
-        height: 700px;
+    to {
+        opacity: 1;
+        transform: translateY(40px) scale(1);
+    }
+}
+
+@keyframes aparecerFlor {
+
+    0% {
+        transform: scale(0);
     }
 
-    /* Fondo */
-    .brillo {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background: #fff;
-        border-radius: 50%;
-        opacity: .7;
-        animation: flotar 4s infinite ease-in-out;
+    70% {
+        transform: scale(1.15);
     }
 
-    .b1 { left: 10%; top: 20%; animation-delay: .2s; }
-    .b2 { left: 80%; top: 15%; animation-delay: 1s; }
-    .b3 { left: 20%; top: 55%; animation-delay: 2s; }
-    .b4 { left: 90%; top: 60%; animation-delay: 1.5s; }
+    100% {
+        transform: scale(1);
+    }
+}
 
-    /* Ramo */
+@keyframes balanceo {
+
+    0%,100% {
+        rotate: -2deg;
+    }
+
+    50% {
+        rotate: 2deg;
+    }
+}
+
+@keyframes flotar {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes brillo {
+
+    0%,100% {
+        opacity: .2;
+        transform: scale(.7);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes aparecerMensaje {
+
+    from {
+        opacity: 0;
+        transform: translate(-50%,20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%,0);
+    }
+}
+
+@keyframes caer {
+
+    from {
+        transform:
+            translateY(-20px)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+    }
+}
+
+/* =========================
+   CELULAR
+========================= */
+
+@media(max-width: 600px) {
+
     .ramo {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 330px;
-        height: 480px;
+        transform: scale(.78) translateY(50px);
     }
 
-    /* Tallos */
-    .tallo {
-        position: absolute;
-        bottom: 90px;
-        left: 50%;
-        width: 9px;
-        height: 350px;
-        background: linear-gradient(to right, #287a35, #4caf50);
-        border-radius: 10px;
-        transform-origin: bottom;
+    .mensaje h2 {
+        font-size: 23px;
     }
 
-    .t1 { transform: rotate(-28deg); }
-    .t2 { transform: rotate(-18deg); }
-    .t3 { transform: rotate(-8deg); }
-    .t4 { transform: rotate(7deg); }
-    .t5 { transform: rotate(18deg); }
-    .t6 { transform: rotate(29deg); }
-
-    /* Flores */
-    .flor {
-        position: absolute;
-        width: 130px;
-        height: 130px;
-        animation: balanceo 3s infinite ease-in-out;
-        transform-origin: bottom center;
+    .mensaje p {
+        font-size: 15px;
     }
 
-    .flor1 { left: 5px; top: 35px; animation-delay: .2s; }
-    .flor2 { left: 65px; top: 0; animation-delay: .5s; }
-    .flor3 { left: 105px; top: 55px; animation-delay: .8s; }
-    .flor4 { left: 165px; top: 10px; animation-delay: 1.1s; }
-    .flor5 { left: 200px; top: 70px; animation-delay: .4s; }
-    .flor6 { left: 85px; top: 110px; animation-delay: 1.3s; }
-
-    /* Pétalos */
-    .petalo {
-        position: absolute;
-        width: 42px;
-        height: 65px;
-        background: linear-gradient(#fff176, #ffd600);
-        border-radius: 50%;
-        left: 44px;
-        top: 0;
-        transform-origin: 21px 65px;
-        box-shadow: 0 2px 5px rgba(0,0,0,.12);
+    .contenido-inicio h1 {
+        font-size: 26px;
     }
+}
 
-    .p1 { transform: rotate(0deg); }
-    .p2 { transform: rotate(45deg); }
-    .p3 { transform: rotate(90deg); }
-    .p4 { transform: rotate(135deg); }
-    .p5 { transform: rotate(180deg); }
-    .p6 { transform: rotate(225deg); }
-    .p7 { transform: rotate(270deg); }
-    .p8 { transform: rotate(315deg); }
-
-    /* Centro de margarita */
-    .centro {
-        position: absolute;
-        width: 48px;
-        height: 48px;
-        background: radial-gradient(circle, #ffec5c, #e6a900);
-        border-radius: 50%;
-        left: 41px;
-        top: 41px;
-        z-index: 5;
-        box-shadow: inset 0 3px 5px rgba(0,0,0,.2);
-    }
-
-    /* Hojas */
-    .hoja {
-        position: absolute;
-        width: 80px;
-        height: 35px;
-        background: linear-gradient(135deg, #388e3c, #7cb342);
-        border-radius: 100% 0 100% 0;
-    }
-
-    .h1 {
-        bottom: 250px;
-        left: 25px;
-        transform: rotate(-35deg);
-    }
-
-    .h2 {
-        bottom: 210px;
-        right: 20px;
-        transform: rotate(140deg);
-    }
-
-    .h3 {
-        bottom: 165px;
-        left: 40px;
-        transform: rotate(-20deg);
-    }
-
-    .h4 {
-        bottom: 130px;
-        right: 35px;
-        transform: rotate(150deg);
-    }
-
-    /* Envoltura */
-    .envoltura {
-        position: absolute;
-        bottom: 25px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 260px;
-        height: 190px;
-        background: linear-gradient(135deg, #fffde7, #fff59d);
-        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
-        z-index: 10;
-        box-shadow: 0 5px 15px rgba(0,0,0,.15);
-    }
-
-    /* Papel interior */
-    .papel {
-        position: absolute;
-        bottom: 25px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 230px;
-        height: 150px;
-        background: rgba(255,255,255,.6);
-        clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
-        z-index: 11;
-    }
-
-    /* Moño */
-    .moco {
-        position: absolute;
-        bottom: 115px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px;
-        height: 60px;
-        z-index: 20;
-    }
-
-    .lazo {
-        position: absolute;
-        width: 55px;
-        height: 45px;
-        background: #e91e63;
-        border-radius: 50%;
-        top: 5px;
-    }
-
-    .lazo.izq {
-        left: 0;
-        transform: rotate(25deg);
-    }
-
-    .lazo.der {
-        right: 0;
-        transform: rotate(-25deg);
-    }
-
-    .nudo {
-        position: absolute;
-        left: 38px;
-        top: 15px;
-        width: 25px;
-        height: 25px;
-        background: #c2185b;
-        border-radius: 50%;
-        z-index: 3;
-    }
-
-    /* Texto */
-    .mensaje {
-        position: absolute;
-        bottom: 5px;
-        width: 100%;
-        text-align: center;
-        color: #8d6e00;
-        font-size: 25px;
-        font-weight: bold;
-        text-shadow: 1px 1px white;
-    }
-
-    @keyframes balanceo {
-        0%, 100% {
-            transform: rotate(-2deg);
-        }
-        50% {
-            transform: rotate(2deg);
-        }
-    }
-
-    @keyframes flotar {
-        0%, 100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-20px);
-        }
-    }
 </style>
 </head>
 
 <body>
 
-<div class="contenedor">
+<!-- =========================
+     PANTALLA INICIAL
+========================= -->
+
+<div class="inicio" id="inicio">
+
+    <div class="contenido-inicio">
+
+        <div class="flor-icono">
+            🌼
+        </div>
+
+        <h1>
+            Tengo algo para ti...
+        </h1>
+
+        <p>
+            No es mucho, pero lo hice pensando en ti 💛
+        </p>
+
+        <button class="boton" onclick="abrirRegalo()">
+            Abrir mi regalo 🌼
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ESCENA DEL RAMO
+========================= -->
+
+<div class="escena" id="escena">
+
+    <!-- Brillos -->
 
     <div class="brillo b1"></div>
     <div class="brillo b2"></div>
     <div class="brillo b3"></div>
     <div class="brillo b4"></div>
+    <div class="brillo b5"></div>
+    <div class="brillo b6"></div>
+
 
     <div class="ramo">
 
         <!-- Tallos -->
+
         <div class="tallo t1"></div>
         <div class="tallo t2"></div>
         <div class="tallo t3"></div>
         <div class="tallo t4"></div>
         <div class="tallo t5"></div>
         <div class="tallo t6"></div>
+        <div class="tallo t7"></div>
+
 
         <!-- Hojas -->
+
         <div class="hoja h1"></div>
         <div class="hoja h2"></div>
         <div class="hoja h3"></div>
         <div class="hoja h4"></div>
 
-        <!-- FLORES -->
+
+        <!-- =====================
+             FLORES
+        ====================== -->
 
         <div class="flor flor1">
+
             <div class="petalo p1"></div>
             <div class="petalo p2"></div>
             <div class="petalo p3"></div>
@@ -292,10 +736,14 @@
             <div class="petalo p6"></div>
             <div class="petalo p7"></div>
             <div class="petalo p8"></div>
+
             <div class="centro"></div>
+
         </div>
+
 
         <div class="flor flor2">
+
             <div class="petalo p1"></div>
             <div class="petalo p2"></div>
             <div class="petalo p3"></div>
@@ -304,10 +752,14 @@
             <div class="petalo p6"></div>
             <div class="petalo p7"></div>
             <div class="petalo p8"></div>
+
             <div class="centro"></div>
+
         </div>
+
 
         <div class="flor flor3">
+
             <div class="petalo p1"></div>
             <div class="petalo p2"></div>
             <div class="petalo p3"></div>
@@ -316,10 +768,14 @@
             <div class="petalo p6"></div>
             <div class="petalo p7"></div>
             <div class="petalo p8"></div>
+
             <div class="centro"></div>
+
         </div>
+
 
         <div class="flor flor4">
+
             <div class="petalo p1"></div>
             <div class="petalo p2"></div>
             <div class="petalo p3"></div>
@@ -328,10 +784,14 @@
             <div class="petalo p6"></div>
             <div class="petalo p7"></div>
             <div class="petalo p8"></div>
+
             <div class="centro"></div>
+
         </div>
+
 
         <div class="flor flor5">
+
             <div class="petalo p1"></div>
             <div class="petalo p2"></div>
             <div class="petalo p3"></div>
@@ -340,10 +800,14 @@
             <div class="petalo p6"></div>
             <div class="petalo p7"></div>
             <div class="petalo p8"></div>
+
             <div class="centro"></div>
+
         </div>
+
 
         <div class="flor flor6">
+
             <div class="petalo p1"></div>
             <div class="petalo p2"></div>
             <div class="petalo p3"></div>
@@ -352,27 +816,141 @@
             <div class="petalo p6"></div>
             <div class="petalo p7"></div>
             <div class="petalo p8"></div>
+
             <div class="centro"></div>
+
         </div>
 
+
+        <div class="flor flor7">
+
+            <div class="petalo p1"></div>
+            <div class="petalo p2"></div>
+            <div class="petalo p3"></div>
+            <div class="petalo p4"></div>
+            <div class="petalo p5"></div>
+            <div class="petalo p6"></div>
+            <div class="petalo p7"></div>
+            <div class="petalo p8"></div>
+
+            <div class="centro"></div>
+
+        </div>
+
+
         <!-- Envoltura -->
+
         <div class="envoltura"></div>
+
         <div class="papel"></div>
 
+
         <!-- Moño -->
-        <div class="moco">
+
+        <div class="mono">
+
             <div class="lazo izq"></div>
+
             <div class="lazo der"></div>
+
             <div class="nudo"></div>
+
         </div>
 
     </div>
 
+
+    <!-- =====================
+         MENSAJE
+    ====================== -->
+
     <div class="mensaje">
-        🌼 Para ti, con cariño 🌼
+
+        <h2>
+            Para ti, porque sí. 🌼
+        </h2>
+
+        <p>
+            A veces no hacen falta muchas palabras...
+            <br>
+            solo un pequeño detalle para recordarte
+            que alguien pensó en ti. 💛
+        </p>
+
     </div>
 
 </div>
 
+
+<script>
+
+/* =========================
+   ABRIR REGALO
+========================= */
+
+function abrirRegalo() {
+
+    const inicio = document.getElementById("inicio");
+    const escena = document.getElementById("escena");
+
+    inicio.style.opacity = "0";
+
+    setTimeout(() => {
+
+        inicio.style.display = "none";
+
+        escena.classList.add("activa");
+
+        crearPetalos();
+
+    }, 1200);
+}
+
+
+/* =========================
+   PÉTALOS
+========================= */
+
+function crearPetalos() {
+
+    for(let i = 0; i < 35; i++) {
+
+        setTimeout(() => {
+
+            const petalo =
+                document.createElement("div");
+
+            petalo.classList.add("petalo-caida");
+
+            petalo.style.left =
+                Math.random() * 100 + "vw";
+
+            petalo.style.animationDuration =
+                (4 + Math.random() * 5) + "s";
+
+            petalo.style.opacity =
+                0.5 + Math.random() * 0.5;
+
+            petalo.style.transform =
+                `rotate(${Math.random() * 360}deg)`;
+
+            document.body.appendChild(petalo);
+
+
+            setTimeout(() => {
+
+                petalo.remove();
+
+            }, 10000);
+
+        }, i * 250);
+
+    }
+
+}
+
+</script>
+
 </body>
 </html>
+```
